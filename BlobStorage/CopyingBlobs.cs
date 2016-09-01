@@ -75,6 +75,7 @@
 
                 await CopyBlobsListing(blobClient, blobClient.GetContainerReference(DropContainerName));
 
+                //await DeleteBlobs(blobClient, DropContainerName, "CSTwit.csv");
 
             }
             catch (StorageException e)
@@ -140,8 +141,23 @@
             CloudBlockBlob target = targetcontrainer.GetBlockBlobReference(NewFolder + BlobName);
 
             await target.StartCopyAsync(source);
+            
         }
 
+        private static async Task DeleteBlobs(CloudBlobClient blobClient, String SourceContainerName, String BlobName)
+        {
+            Console.WriteLine("=================================================");
+            Console.WriteLine("Deleting Blobs");
+            Console.WriteLine();
+
+            CloudBlobContainer sourcecontrainer = null;
+            sourcecontrainer = blobClient.GetContainerReference(SourceContainerName);
+
+            CloudBlockBlob source = sourcecontrainer.GetBlockBlobReference(BlobName);
+
+            source.DeleteIfExists();
+
+        }
         private static async Task CopyBlobsListing(CloudBlobClient blobClient, CloudBlobContainer container)
         {
             // List blobs to the console window.
@@ -180,6 +196,7 @@
                         {
                             Console.WriteLine(blobItem.Uri.Segments.Last());
                             await CopyBlobs(blobClient, DropContainerName, IngestContainerName, blobItem.Uri.Segments.Last());
+                            await DeleteBlobs(blobClient, DropContainerName, blobItem.Uri.Segments.Last());
                         }
                     }
 
