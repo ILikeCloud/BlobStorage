@@ -110,26 +110,27 @@
             String NewFolder = "";
 
             //DateTime dt = DateTime.Now;
+            //DateTime dt = DateTime.UtcNow.AddMinutes(15);
             DateTime dt = DateTime.UtcNow;
             string roundedmiutes = "00";
             if (dt.Minute < 15 && dt.Minute >= 0)
             {
-                roundedmiutes = "15";
+                roundedmiutes = "00";
             }
             if (dt.Minute < 30 && dt.Minute >= 15)
             {
-                roundedmiutes = "30";
+                roundedmiutes = "15";
             }
             if (dt.Minute < 45 && dt.Minute >= 30)
             {
-                roundedmiutes = "45";
+                roundedmiutes = "30";
             }
             if (dt.Minute < 60 && dt.Minute >= 45)
             {
-                roundedmiutes = "00";
+                roundedmiutes = "45";
             }
 
-            NewFolder = string.Format("{0:yyyy}", dt) + "/" + string.Format("{0:MM}", dt) + "/" + string.Format("{0:dd}", dt) + "/" + string.Format("{0:hh}", dt) + "/" + roundedmiutes + "/";
+            NewFolder = string.Format("{0:yyyy}", dt) + "/" + string.Format("{0:MM}", dt) + "/" + string.Format("{0:dd}", dt) + "/" + string.Format("{0:HH}", dt) + "/" + roundedmiutes + "/";
 
             CloudBlobContainer sourcecontrainer = null;
             sourcecontrainer = blobClient.GetContainerReference(SourceContainerName);
