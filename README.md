@@ -2,6 +2,7 @@
 services: storage
 platforms: dotnet
 author: tamram
+modifiedby: paalexan
 ---
 
 # Azure Blob Storage Samples for .NET
